@@ -2,17 +2,99 @@
 	<head>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
+		<meta charset="UTF-8">
+		<title>Gee Mail Emulator 1.0.0 a</title>
     <script>
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+        var mailTable = document.getElementById("mailTable");
+        var mailNum = 0;
+        //var mailInvervalId = window.setInterval(loadNewMail,3000);
         
+		loadMailTable();
+
+		function loadMailTable(){
+			window.geemails.forEach(appendMailTableRow);
+		}
+
+		function appendMailTableRow(mail){
+			var tableCell1 = document.createElement("td");
+			var tableCell2 = document.createElement("td");
+			var tableCell3 = document.createElement("td");
+			var tableRow = document.createElement("tr");
+
+			tableCell1.textContent = mail.sender;
+			tableCell2.textContent = mail.subject
+			tableCell3.textContent = mail.date;
+			tableRow.id = "mail" + mailNum;
+			addEventClickListener(tableRow);
+			// tableCell1.appendChild(tableDiv);
+			tableRow.appendChild(tableCell1);
+			tableRow.appendChild(tableCell2);
+			tableRow.appendChild(tableCell3);
+			mailTable.appendChild(tableRow);
+			mailNum++;
+		}
+
+		function loadNewMail(){
+			var newMail = getNewMessage();
+			console.log(newMail);
+			appendMailTableRow(newMail);
+			window.geemails.push(newMail);
+		}
+
       };
     </script>
 	</head>
 	<body>
-		<div class="container" id="main">
-			Build Me!
-		</div>
+		<h1>Get Sum Mail</h1>
+		<label>Greegle?</label><input type="text" />
+		<br>
+  	  	<table id="wrapperTable" style="width:100%;border:1px solid black;cellpadding:0;">
+  	  	<colgroup>
+  	  	  <col style="background-color:red;" />
+  	  	  <col style="background-color:blue;" />
+  	  	</colgroup>
+  	  	<tbody>
+  	  	<tr>
+  	  		<td style="width:15%">
+	  	  		<div id="indexWrapperDiv" style="height:1000px;" >
+	  	  			<table id="indexTable" style="width:100%;">
+	  	  			  <tr>
+	  	  			    <td><input type="button" value="Compose" /></td>
+	  	  			  </tr>
+	  	  			  <tr>
+	  	  			    <td><a href="#">Inbox</a></td>
+	  	  			  </tr>
+	  	  			  <tr>
+	  	  			    <td><a href="#">Starred</a></td>
+	  	  			  </tr>
+	  	  			  <tr>
+	  	  			    <td><a href="#">Sent Mail</a></td>
+	  	  			  </tr>
+	  	  			  <tr>
+	  	  			    <td><a href="#">Drafts</a></td>
+	  	  			  </tr>
+	  	  			  <tr>
+	  	  			    <td><a href="#">More</a></td>
+	  	  			  </tr>
+	  	  			</table>
+	  	  		</div>
+  	  		</td>
+  	  		<td style="width:85%;">
+  	  			<div id="mailWrapperDiv" style="height:1000px;">
+  	  			<table id="mailTable" style="width:100%;color:white;">
+  	  			  <thead>
+  	  			    <th>Sender</th>
+  	  			    <th>Subject</th>
+  	  			    <th>Date</th>
+  	  			  </thead>
+  	  			</table>
+  	  			</div>
+  	  		</td>
+  	  	</tr>
+  	  	</tbody>
+  	  	</table>
 	</body>
 </html>
