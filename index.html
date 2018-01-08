@@ -29,19 +29,28 @@
 				var tableCell1 = document.createElement("td");
 				var tableCell2 = document.createElement("td");
 				var tableCell3 = document.createElement("td");
+				var tableCell4 = document.createElement("td");
 				var tableRow = document.createElement("tr");
+				var checkBox = document.createElement("input");
 
-				tableCell1.textContent = mail.sender;
-				tableCell2.textContent = mail.subject
-				tableCell3.textContent = mail.date;
+				checkBox.type = "checkbox";
+				checkBox.id = mailNum;
+				checkBox.onclick = deleteGMail;
+				tableCell1.appendChild(checkBox);
+				tableCell2.textContent = mail.sender;
+				tableCell3.textContent = mail.subject
+				tableCell4.textContent = mail.date;
 				tableRow.id = "mail" + mailNum;
-				tableRow.addEventListener("click",addExpandBodyClickListener(mail));
+				tableCell2.addEventListener("click",addExpandBodyClickListener(mail));
+				tableCell3.addEventListener("click",addExpandBodyClickListener(mail));
+				tableCell4.addEventListener("click",addExpandBodyClickListener(mail));
 				tableRow.addEventListener("mouseenter",addStyleEnterListener(tableRow));
 				tableRow.addEventListener("mouseleave",addStyleLeaveListener(tableRow));
 				// tableCell1.appendChild(tableDiv);
 				tableRow.appendChild(tableCell1);
 				tableRow.appendChild(tableCell2);
 				tableRow.appendChild(tableCell3);
+				tableRow.appendChild(tableCell4);
 				mailTable.appendChild(tableRow);
 				mailNum++;
 				updateInboxCt();
@@ -128,6 +137,13 @@
 	        	}
 	        }
 
+	        function deleteGMail(){
+	        	var tbl = (((document.getElementById(this.id)).parentNode).parentNode).parentNode;
+	        	var tblrow = ((document.getElementById(this.id)).parentNode).parentNode;
+	        	
+	        	tbl.removeChild(tblrow);
+	        }
+
 	      };
 	    </script>
 	
@@ -173,6 +189,9 @@
 	  	  			    <td><a href="#">Drafts</a></td>
 	  	  			  </tr>
 	  	  			  <tr>
+	  	  			    <td><a href="#">Delete Checked</a></td>
+	  	  			  </tr>
+	  	  			  <tr>
 	  	  			    <td><a href="#">More</a></td>
 	  	  			  </tr>
 	  	  			</table>
@@ -182,6 +201,7 @@
   	  			<div id="mailWrapperDiv">
   	  			<table id="mailTable" cellspacing=0 >
   	  			  <thead>
+  	  			  	<th></th>
   	  			    <th>Sender</th>
   	  			    <th>Subject</th>
   	  			    <th>Date</th>
