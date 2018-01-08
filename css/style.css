@@ -1,0 +1,61 @@
+.g_search_div {
+	width: 25%;
+}
+
+.g_spacer {
+	display: inline-block;
+	width: 150px;
+	margin: auto;
+}
+
+.google_label {
+	text: "Google Search?";
+}
+
+#googlText {
+}
+
+#googl {
+	text: "Search!";
+}
+
+.mail_body_hr {
+	height: 10px;
+	color: green;
+	background-color: green;
+	margin: 0;
+}
+
+#wrapperTable {
+	width: 100%;
+	border: 1px solid black;
+	padding: 0;
+} 
+
+.mail_col1 {
+	background-color: orange;
+	width: 15%;
+}
+
+.mail_col2 {
+	background-color:blue;
+	width: 85%;
+}
+
+#indexWrapperDiv {
+	height: 500px;
+}
+
+#indexTable {
+	width: 100%;
+}
+
+#mailWrapperDiv {
+	height: 500px;
+	overflow: auto;
+}
+
+#mailTable {
+	width: 100%;
+	color: white;
+}

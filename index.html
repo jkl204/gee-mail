@@ -1,150 +1,162 @@
 <html>
+
 	<head>
+
 		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" media="screen">
-		<meta charset="UTF-8">
-		<title>Gee Mail Emulator 1.0.0 a</title>
-    <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-        var mailTable = document.getElementById("mailTable");
-        var mailHiddenBody = document.getElementById("mailBodyTable");
-        var mailNum = 0;
-        var mailInvervalId = window.setInterval(loadNewMail,3000);
-        var googleButton = document.getElementById("googl");
-        var googleText = document.getElementById("googlText");
-        googleButton.addEventListener("click", navigateGoogl());
-        var inboxATag = document.getElementById("inboxAnchor");
-        
-		loadMailTable();
+			<link href="css/style.css" rel="stylesheet" media="screen">
+			<meta charset="UTF-8">
+			<title>Gee Mail Emulator 1.0.0 a</title>
+	    <script>
+	      window.onload = function(){
+	        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
+	        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+	        var mailTable = document.getElementById("mailTable");
+	        var mailHiddenBody = document.getElementById("mailBodyTable");
+	        var mailNum = 0;
+	        var mailInvervalId = window.setInterval(loadNewMail,3000);
+	        var googleButton = document.getElementById("googl");
+	        var googleText = document.getElementById("googlText");
+	        googleButton.addEventListener("click", navigateGoogl());
+	        var inboxATag = document.getElementById("inboxAnchor");
+	        
+			loadMailTable();
 
-		function loadMailTable(){
-			window.geemails.forEach(appendMailTableRow);
-		}
-
-		function appendMailTableRow(mail){
-			var tableCell1 = document.createElement("td");
-			var tableCell2 = document.createElement("td");
-			var tableCell3 = document.createElement("td");
-			var tableRow = document.createElement("tr");
-
-			tableCell1.textContent = mail.sender;
-			tableCell2.textContent = mail.subject
-			tableCell3.textContent = mail.date;
-			tableRow.id = "mail" + mailNum;
-			tableRow.addEventListener("click",addExpandBodyClickListener(mail));
-			tableRow.addEventListener("mouseenter",addStyleEnterListener(tableRow));
-			tableRow.addEventListener("mouseleave",addStyleLeaveListener(tableRow));
-			// tableCell1.appendChild(tableDiv);
-			tableRow.appendChild(tableCell1);
-			tableRow.appendChild(tableCell2);
-			tableRow.appendChild(tableCell3);
-			mailTable.appendChild(tableRow);
-			mailNum++;
-			updateInboxCt();
-		}
-
-		function loadNewMail(){
-			var newMail = getNewMessage();
-			//console.log(newMail);
-			appendMailTableRow(newMail);
-			window.geemails.push(newMail);
-		}
-
-		function addStyleEnterListener(mailEnterRow){
-			return enteredStyle;
-
-			function enteredStyle(){
-				mailEnterRow.style = "background-color:white;color:black;";
+			function loadMailTable(){
+				window.geemails.forEach(appendMailTableRow);
 			}
-		}
 
-		function addStyleLeaveListener(mailLeaveRow){
-			return enteredStyle;
-
-			function enteredStyle(){
-				mailLeaveRow.style = "";
-			}
-		}
-
-		function addExpandBodyClickListener(mailObject){
-			return loadMailBody;
-
-			function loadMailBody(){
-				var tableHeader1 = document.createElement("th");
-				var tableHeader2 = document.createElement("th");
-				var tableCell = document.createElement("td");
-				var tableHead = document.createElement("thead");
+			function appendMailTableRow(mail){
+				var tableCell1 = document.createElement("td");
+				var tableCell2 = document.createElement("td");
+				var tableCell3 = document.createElement("td");
 				var tableRow = document.createElement("tr");
-				var bodyPar1 = document.createElement("p");
-				var bodyPar2 = document.createElement("p");
-				var bodyDiv = document.createElement("div");
 
-				mailTable.style.display = "none";
-				mailHiddenBody.style = "width:100%;color:white;";
-				
-				tableHeader1.textContent = "// Sender: " + mailObject.sender + " // Subject: " + mailObject.subject + " //"
-				bodyPar1.textContent = "Recieved: " + mailObject.date;
-				bodyPar2.textContent = mailObject.body;
-				tableHead.appendChild(tableHeader1);
-				bodyDiv.appendChild(bodyPar1);
-				bodyDiv.appendChild(bodyPar2);
-				bodyDiv.style = "height:455px";
-				tableCell.style = "background-color:white;color:black;";
-				tableCell.appendChild(bodyDiv);
-				tableRow.appendChild(tableCell);
-				mailHiddenBody.appendChild(tableHead);
-				mailHiddenBody.appendChild(tableRow);
-				tableHead.addEventListener("click", addHideBodyClickListener());
-				tableRow.addEventListener("click", addHideBodyClickListener());
+				tableCell1.textContent = mail.sender;
+				tableCell2.textContent = mail.subject
+				tableCell3.textContent = mail.date;
+				tableRow.id = "mail" + mailNum;
+				tableRow.addEventListener("click",addExpandBodyClickListener(mail));
+				tableRow.addEventListener("mouseenter",addStyleEnterListener(tableRow));
+				tableRow.addEventListener("mouseleave",addStyleLeaveListener(tableRow));
+				// tableCell1.appendChild(tableDiv);
+				tableRow.appendChild(tableCell1);
+				tableRow.appendChild(tableCell2);
+				tableRow.appendChild(tableCell3);
+				mailTable.appendChild(tableRow);
+				mailNum++;
+				updateInboxCt();
 			}
-		}
 
-		function addHideBodyClickListener(){
-			
-			return hideMailBody;
+			function loadNewMail(){
+				var newMail = getNewMessage();
+				//console.log(newMail);
+				appendMailTableRow(newMail);
+				window.geemails.push(newMail);
+			}
 
-			function hideMailBody(){
-				mailHiddenBody.style.display = "none";
-				mailTable.style = "width:100%;color:white;";
-				while(mailHiddenBody.hasChildNodes()){
-					mailHiddenBody.removeChild(mailHiddenBody.firstChild);
+			function addStyleEnterListener(mailEnterRow){
+				return enteredStyle;
+
+				function enteredStyle(){
+					mailEnterRow.style = "background-color:white;color:black;";
 				}
 			}
-		}
 
-		function updateInboxCt(){
-			inboxATag.textContent = "Inbox (" + mailNum + ")";
-		}
+			function addStyleLeaveListener(mailLeaveRow){
+				return enteredStyle;
 
-        function navigateGoogl(){
-        	return googlIt;
+				function enteredStyle(){
+					mailLeaveRow.style = "";
+				}
+			}
 
-        	function googlIt(){
-        	  window.location.href ="https://www.google.com/search?q=" + googleText.value;
-        	}
-        }
+			function addExpandBodyClickListener(mailObject){
+				return loadMailBody;
 
-      };
-    </script>
+				function loadMailBody(){
+					var tableHeader1 = document.createElement("th");
+					var tableHeader2 = document.createElement("th");
+					var tableCell = document.createElement("td");
+					var tableHead = document.createElement("thead");
+					var tableRow = document.createElement("tr");
+					var bodyPar1 = document.createElement("p");
+					var bodyPar2 = document.createElement("p");
+					var bodyDiv = document.createElement("div");
+
+					mailTable.style.display = "none";
+					mailHiddenBody.style = "width:100%;color:white;";
+					
+					tableHeader1.textContent = "// Sender: " + mailObject.sender + " // Subject: " + mailObject.subject + " //"
+					bodyPar1.textContent = "Recieved: " + mailObject.date;
+					bodyPar2.textContent = mailObject.body;
+					tableHead.appendChild(tableHeader1);
+					bodyDiv.appendChild(bodyPar1);
+					bodyDiv.appendChild(bodyPar2);
+					bodyDiv.style = "height:455px";
+					tableCell.style = "background-color:white;color:black;";
+					tableCell.appendChild(bodyDiv);
+					tableRow.appendChild(tableCell);
+					mailHiddenBody.appendChild(tableHead);
+					mailHiddenBody.appendChild(tableRow);
+					tableHead.addEventListener("click", addHideBodyClickListener());
+					tableRow.addEventListener("click", addHideBodyClickListener());
+				}
+			}
+
+			function addHideBodyClickListener(){
+				
+				return hideMailBody;
+
+				function hideMailBody(){
+					mailHiddenBody.style.display = "none";
+					mailTable.style = "width:100%;color:white;";
+					while(mailHiddenBody.hasChildNodes()){
+						mailHiddenBody.removeChild(mailHiddenBody.firstChild);
+					}
+				}
+			}
+
+			function updateInboxCt(){
+				inboxATag.textContent = "Inbox (" + mailNum + ")";
+			}
+
+	        function navigateGoogl(){
+	        	return googlIt;
+
+	        	function googlIt(){
+	        	  window.location.href ="https://www.google.com/search?q=" + googleText.value;
+	        	}
+	        }
+
+	      };
+	    </script>
+	
 	</head>
+
 	<body>
+
 		<h1>Get Sum Mail</h1>
-		<label>Greegle?</label><input id="googlText" type="text" /><button id="googl">greegle!</button>
-		<br>
-		<br>
-		<hr style="height:10px;color:green;background-color:green;margin:0;" >
-  	  	<table id="wrapperTable" style="width:100%;border:1px solid black;cellpadding:0;">
+
+		<div class="g_search_div"> 
+		  <div class="g_spacer"><label class="google_label">Google Search?</label></div>
+		  <div class="g_spacer"><input id="googlText" type="text" /></div>
+		  <div class="g_spacer"><input type="button" id="googl" value="Search!" /></div>
+		</div>
+		<br />
+
+		<hr class="mail_body_hr" />
+  	  	<table id="wrapperTable">
+
   	  	<colgroup>
-  	  	  <col style="background-color:orange;" />
-  	  	  <col style="background-color:blue;" />
+  	  	  <col class="mail_col1" />
+  	  	  <col class="mail_col2" />
   	  	</colgroup>
+
   	  	<tbody>
   	  	<tr>
-  	  		<td style="width:15%">
-	  	  		<div id="indexWrapperDiv" style="height:500px;" >
-	  	  			<table id="indexTable" style="width:100%;">
+  	  		<td>
+	  	  		<div id="indexWrapperDiv">
+	  	  			<table id="indexTable">
 	  	  			  <tr>
 	  	  			    <td><input type="button" value="Compose" /></td>
 	  	  			  </tr>
@@ -166,23 +178,23 @@
 	  	  			</table>
 	  	  		</div>
   	  		</td>
-  	  		<td style="width:85%;">
-  	  			<div id="mailWrapperDiv" style="height:500px;overflow:auto;">
-  	  			<table id="mailTable" cellspacing=0 style="width:100%;color:white;">
+  	  		<td>
+  	  			<div id="mailWrapperDiv">
+  	  			<table id="mailTable" cellspacing=0 >
   	  			  <thead>
   	  			    <th>Sender</th>
   	  			    <th>Subject</th>
   	  			    <th>Date</th>
   	  			  </thead>
   	  			</table>
-  	  			<table id="mailBodyTable" style="display:none;" >
+  	  			<table id="mailBodyTable" >
   	  			</table>
   	  			</div>
   	  		</td>
   	  	</tr>
   	  	</tbody>
   	  	</table>
+  	<hr class="mail_body_hr" />
 
-  	<hr style="height:10px;color:green;background-color:green;margin:0;" >
 	</body>
 </html>
