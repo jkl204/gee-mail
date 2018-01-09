@@ -21,6 +21,8 @@
 	        var inboxATag = document.getElementById("inboxAnchor");
 	        var checkedMailIndex = [];
 	        var deleteLink = document.getElementById("del_link");
+	        //need a key array to store ids for geemails as they are added so that we can track and delete them later with splice by their position
+	        var gmailsKey = [];
 	        deleteLink.onclick = deleteGMail;
 	        
 			loadMailTable();
@@ -56,6 +58,7 @@
 				tableRow.appendChild(tableCell3);
 				tableRow.appendChild(tableCell4);
 				mailTable.appendChild(tableRow);
+				gmailsKey.push(mailIndex);
 				mailNum++;
 				mailIndex++;
 				updateInboxCt();
@@ -198,11 +201,16 @@
 	        		tbl = (((document.getElementById(checkedMailIndex[i])).parentNode).parentNode).parentNode;
 	        		tblrow = ((document.getElementById(checkedMailIndex[i])).parentNode).parentNode;
 	        		tbl.removeChild(tblrow);
+	        		//delete from geemails
+	        		window.geemails.splice(gmailsKey.indexOf(checkedMailIndex[i]), 1);
+	        		gmailsKey.splice(gmailsKey.indexOf(checkedMailIndex[i]), 1);
 	        	}
 
 	        	checkedMailIndex = new Array();
 	        	mailNum -=i;
 				updateInboxCt();
+
+				hideDelButton();
 
 	        	return false;
 	        }
