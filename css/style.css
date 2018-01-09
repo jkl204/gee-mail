@@ -60,6 +60,10 @@
 	color: white;
 }
 
+#del_cell {
+	width: 75px;
+}
+
 #mailBodyTable {
 	
 }

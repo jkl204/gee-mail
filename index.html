@@ -13,11 +13,15 @@
 	        var mailTable = document.getElementById("mailTable");
 	        var mailHiddenBody = document.getElementById("mailBodyTable");
 	        var mailNum = 0;
+	        var mailIndex = 0;
 	        var mailInvervalId = window.setInterval(loadNewMail,3000);
 	        var googleButton = document.getElementById("googl");
 	        var googleText = document.getElementById("googlText");
 	        googleButton.addEventListener("click", navigateGoogl());
 	        var inboxATag = document.getElementById("inboxAnchor");
+	        var checkedMailIndex = [];
+	        var deleteLink = document.getElementById("del_link");
+	        deleteLink.onclick = deleteGMail;
 	        
 			loadMailTable();
 
@@ -34,13 +38,13 @@
 				var checkBox = document.createElement("input");
 
 				checkBox.type = "checkbox";
-				checkBox.id = mailNum;
-				checkBox.onclick = deleteGMail;
+				checkBox.id = mailIndex;
+				checkBox.onclick = checkMailArray;
 				tableCell1.appendChild(checkBox);
 				tableCell2.textContent = mail.sender;
 				tableCell3.textContent = mail.subject
 				tableCell4.textContent = mail.date;
-				tableRow.id = "mail" + mailNum;
+				//tableRow.id = "mail" + mailIndex;
 				tableCell2.addEventListener("click",addExpandBodyClickListener(mail));
 				tableCell3.addEventListener("click",addExpandBodyClickListener(mail));
 				tableCell4.addEventListener("click",addExpandBodyClickListener(mail));
@@ -53,6 +57,7 @@
 				tableRow.appendChild(tableCell4);
 				mailTable.appendChild(tableRow);
 				mailNum++;
+				mailIndex++;
 				updateInboxCt();
 			}
 
@@ -137,11 +142,69 @@
 	        	}
 	        }
 
-	        function deleteGMail(){
-	        	var tbl = (((document.getElementById(this.id)).parentNode).parentNode).parentNode;
-	        	var tblrow = ((document.getElementById(this.id)).parentNode).parentNode;
+
+	        function checkMailArray(){
+
+	        	//alert(checkedMailIndex.indexOf(this.id) < 0);
+
+	        	if (this.checked) {
+	        		if (checkedMailIndex.indexOf(this.id) < 0) {
+	        			//alert("adding");
+	        			checkedMailIndex.push(this.id);
+	        		}
+	        	} else {
+	        		//alert("not here");
+	        		if (checkedMailIndex.includes(this.id)) {
+	        			checkedMailIndex.splice(checkedMailIndex.indexOf(this.id),1);
+	        		}
+	        	}
+
+	        	if(checkedMailIndex.length > 0){ showDelButton(); } else { hideDelButton(); }
 	        	
-	        	tbl.removeChild(tblrow);
+	        	/*
+	        	var checkedMailString = "[";
+	        	for (i=0; i<checkedMailIndex.length; i++) {
+	        		checkedMailString = checkedMailString + " " + checkedMailIndex[i];
+	        	}
+	        	checkedMailString = checkedMailString + "]";
+	        	alert(checkedMailString);
+	        	*/
+	        	
+	        }
+
+	        function showDelButton(){
+	        	var dCell = document.getElementById("del_cell");
+	        	//alert(dCell.hasChildNodes());
+	        	if (!dCell.hasChildNodes()) {
+	        		var dbutton = document.createElement("input");
+	        	dbutton.type = "button";
+	        	dbutton.value = "Delete";
+	        	dbutton.onclick = deleteGMail;
+	        	dCell.appendChild(dbutton);
+	        	}
+	        }
+
+	        function hideDelButton() {
+	        	var dCell = document.getElementById("del_cell");
+	        	while(dCell.firstChild) { dCell.removeChild(dCell.firstChild); }
+	        }
+
+	        function deleteGMail(){
+
+	        	var tbl;
+	        	var tblrow;
+
+	        	for (i=0; i<checkedMailIndex.length; i++) {
+	        		tbl = (((document.getElementById(checkedMailIndex[i])).parentNode).parentNode).parentNode;
+	        		tblrow = ((document.getElementById(checkedMailIndex[i])).parentNode).parentNode;
+	        		tbl.removeChild(tblrow);
+	        	}
+
+	        	checkedMailIndex = new Array();
+	        	mailNum -=i;
+				updateInboxCt();
+
+	        	return false;
 	        }
 
 	      };
@@ -180,19 +243,19 @@
 	  	  			    <td><a id="inboxAnchor" href="#">Inbox</a></td>
 	  	  			  </tr>
 	  	  			  <tr>
-	  	  			    <td><a href="#">Starred</a></td>
+	  	  			    <td><a>Starred</a></td>
 	  	  			  </tr>
 	  	  			  <tr>
-	  	  			    <td><a href="#">Sent Mail</a></td>
+	  	  			    <td><a>Sent Mail</a></td>
 	  	  			  </tr>
 	  	  			  <tr>
-	  	  			    <td><a href="#">Drafts</a></td>
+	  	  			    <td><a>Drafts</a></td>
 	  	  			  </tr>
 	  	  			  <tr>
-	  	  			    <td><a href="#">Delete Checked</a></td>
+	  	  			    <td><a id="del_link" href="#">Delete Checked</a></td>
 	  	  			  </tr>
 	  	  			  <tr>
-	  	  			    <td><a href="#">More</a></td>
+	  	  			    <td><a>More</a></td>
 	  	  			  </tr>
 	  	  			</table>
 	  	  		</div>
@@ -201,7 +264,7 @@
   	  			<div id="mailWrapperDiv">
   	  			<table id="mailTable" cellspacing=0 >
   	  			  <thead>
-  	  			  	<th></th>
+  	  			  	<th id="del_cell"></th>
   	  			    <th>Sender</th>
   	  			    <th>Subject</th>
   	  			    <th>Date</th>
