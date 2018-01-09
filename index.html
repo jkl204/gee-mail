@@ -12,6 +12,7 @@
 	        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 	        var mailTable = document.getElementById("mailTable");
 	        var mailHiddenBody = document.getElementById("mailBodyTable");
+	        var mailHiddenBodyHeader = document.getElementById("mailBodyTableHeader");
 	        var mailNum = 0;
 	        var mailIndex = 0;
 	        var mailInvervalId = window.setInterval(loadNewMail,3000);
@@ -21,9 +22,14 @@
 	        var inboxATag = document.getElementById("inboxAnchor");
 	        var checkedMailIndex = [];
 	        var deleteLink = document.getElementById("del_link");
+	        var inboxLink = document.getElementById("inboxAnchor");
 	        //need a key array to store ids for geemails as they are added so that we can track and delete them later with splice by their position
 	        var gmailsKey = [];
 	        deleteLink.onclick = deleteGMail;
+
+	        var composeMail = document.getElementById("new_mail");
+	        composeMail.onclick = loadComposeBody;
+	        inboxLink.onclick = inbox_show;
 	        
 			loadMailTable();
 
@@ -53,9 +59,13 @@
 				tableRow.addEventListener("mouseenter",addStyleEnterListener(tableRow));
 				tableRow.addEventListener("mouseleave",addStyleLeaveListener(tableRow));
 				// tableCell1.appendChild(tableDiv);
+				tableCell1.className = "del_class";
 				tableRow.appendChild(tableCell1);
+				tableCell2.className = "send_class";
 				tableRow.appendChild(tableCell2);
+				tableCell3.className = "subj_class";
 				tableRow.appendChild(tableCell3);
+				tableCell4.className = "date_class";
 				tableRow.appendChild(tableCell4);
 				mailTable.appendChild(tableRow);
 				gmailsKey.push(mailIndex);
@@ -91,33 +101,83 @@
 				return loadMailBody;
 
 				function loadMailBody(){
-					var tableHeader1 = document.createElement("th");
-					var tableHeader2 = document.createElement("th");
+					//var tableHeader1 = document.createElement("th");
 					var tableCell = document.createElement("td");
-					var tableHead = document.createElement("thead");
+					//var tableHead = document.createElement("thead");
 					var tableRow = document.createElement("tr");
-					var bodyPar1 = document.createElement("p");
+					//var bodyPar1 = document.createElement("p");
 					var bodyPar2 = document.createElement("p");
 					var bodyDiv = document.createElement("div");
 
 					mailTable.style.display = "none";
 					mailHiddenBody.style = "width:100%;color:white;";
 					
-					tableHeader1.textContent = "// Sender: " + mailObject.sender + " // Subject: " + mailObject.subject + " //"
-					bodyPar1.textContent = "Recieved: " + mailObject.date;
+					//tableHeader1.textContent = "// Sender: " + mailObject.sender + " // Subject: " + mailObject.subject + " //"
+
+					var tableCell1 = document.createElement("td");
+					var tableCell2 = document.createElement("td");
+					var tableCell3 = document.createElement("td");
+					var tableCell4 = document.createElement("td");
+					var tableRow1 = document.createElement("tr");
+					//var checkBox = document.createElement("input");
+
+					tableCell2.textContent = mailObject.sender;
+					tableCell3.textContent = mailObject.subject
+					tableCell4.textContent = mailObject.date;
+					tableCell1.className = "del_class";
+					tableRow1.appendChild(tableCell1);
+					tableCell2.className = "send_class";
+					tableRow1.appendChild(tableCell2);
+					tableCell3.className = "subj_class";
+					tableRow1.appendChild(tableCell3);
+					tableCell4.className = "date_class";
+					tableRow1.appendChild(tableCell4);
+					mailHiddenBodyHeader.appendChild(tableRow1);
+
+					//bodyPar1.textContent = "Recieved: " + mailObject.date;
 					bodyPar2.textContent = mailObject.body;
-					tableHead.appendChild(tableHeader1);
-					bodyDiv.appendChild(bodyPar1);
+					//tableHead.appendChild(tableHeader1);
+					//bodyDiv.appendChild(bodyPar1);
 					bodyDiv.appendChild(bodyPar2);
 					bodyDiv.style = "height:455px";
 					tableCell.style = "background-color:white;color:black;";
 					tableCell.appendChild(bodyDiv);
 					tableRow.appendChild(tableCell);
-					mailHiddenBody.appendChild(tableHead);
+					//mailHiddenBody.appendChild(tableHead);
 					mailHiddenBody.appendChild(tableRow);
-					tableHead.addEventListener("click", addHideBodyClickListener());
+					//tableHead.addEventListener("click", addHideBodyClickListener());
 					tableRow.addEventListener("click", addHideBodyClickListener());
 				}
+			}
+
+			function loadComposeBody(){
+					while(mailHiddenBody.firstChild) {
+						mailHiddenBody.removeChild(mailHiddenBody.firstChild);
+					}
+					var tableCell = document.createElement("td");
+					var tableRow = document.createElement("tr");
+					var bodyPar1 = document.createElement("p");
+					var bodyPar2 = document.createElement("p");
+					var bodyPar3 = document.createElement("p");
+					var bodyPar4 = document.createElement("p");
+					var bodyDiv = document.createElement("div");
+
+					mailTable.style.display = "none";
+					mailHiddenBody.style = "width:100%;color:white;";
+					bodyPar1.textContent = "[Compose New Mail]";
+					bodyPar2.textContent = "To: <test email>";
+					bodyPar3.textContent = "Subject: <new subject to test>";
+					bodyPar4.textContent = "Body: <click to return>";
+					bodyDiv.appendChild(bodyPar1);
+					bodyDiv.appendChild(bodyPar2);
+					bodyDiv.appendChild(bodyPar3);
+					bodyDiv.appendChild(bodyPar4);
+					bodyDiv.style = "height:455px";
+					tableCell.style = "background-color:white;color:black;";
+					tableCell.appendChild(bodyDiv);
+					tableRow.appendChild(tableCell);
+					mailHiddenBody.appendChild(tableRow);
+					tableRow.addEventListener("click", addHideBodyClickListener());
 			}
 
 			function addHideBodyClickListener(){
@@ -130,6 +190,20 @@
 					while(mailHiddenBody.hasChildNodes()){
 						mailHiddenBody.removeChild(mailHiddenBody.firstChild);
 					}
+					while(mailHiddenBodyHeader.firstChild) {
+						mailHiddenBodyHeader.removeChild(mailHiddenBodyHeader.firstChild);
+					}
+				}
+			}
+
+			function inbox_show() {
+				mailHiddenBody.style.display = "none";
+				mailTable.style = "width:100%;color:white;";
+				while(mailHiddenBody.hasChildNodes()){
+					mailHiddenBody.removeChild(mailHiddenBody.firstChild);
+				}
+				while(mailHiddenBodyHeader.firstChild) {
+					mailHiddenBodyHeader.removeChild(mailHiddenBodyHeader.firstChild);
 				}
 			}
 
@@ -245,7 +319,7 @@
 	  	  		<div id="indexWrapperDiv">
 	  	  			<table id="indexTable">
 	  	  			  <tr>
-	  	  			    <td><input type="button" value="Compose" /></td>
+	  	  			    <td><input type="button" id="new_mail" value="Compose" /></td>
 	  	  			  </tr>
 	  	  			  <tr>
 	  	  			    <td><a id="inboxAnchor" href="#">Inbox</a></td>
@@ -269,14 +343,21 @@
 	  	  		</div>
   	  		</td>
   	  		<td>
+
+  	  			<table id="headerTable" cellspacing=0>
+  	  				<thead>
+  	  			  	<th id="del_cell" class="del_class"></th>
+  	  			    <th class="send_class">Sender</th>
+  	  			    <th class="subj_class">Subject</th>
+  	  			    <th class="date_class">Date</th>
+  	  			  </thead>
+  	  			</table>
+  	  			
   	  			<div id="mailWrapperDiv">
   	  			<table id="mailTable" cellspacing=0 >
-  	  			  <thead>
-  	  			  	<th id="del_cell"></th>
-  	  			    <th>Sender</th>
-  	  			    <th>Subject</th>
-  	  			    <th>Date</th>
-  	  			  </thead>
+  	  			</table>
+
+				<table id="mailBodyTableHeader">
   	  			</table>
   	  			<table id="mailBodyTable" >
   	  			</table>

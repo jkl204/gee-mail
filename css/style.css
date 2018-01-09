@@ -55,13 +55,35 @@
 	overflow: auto;
 }
 
+#headerTable {
+	width: 100%;
+	color: white;
+}
+
 #mailTable {
 	width: 100%;
 	color: white;
 }
 
-#del_cell {
-	width: 75px;
+.del_class {
+	width: 5%;
+}
+
+.send_class {
+	width: 15%;
+}
+
+.subj_class {
+	width: 15%;
+}
+
+.date_class {
+	width: 65%;
+}
+
+#mailBodyTableHeader {
+	width: 100%;
+	color: white;
 }
 
 #mailBodyTable {
