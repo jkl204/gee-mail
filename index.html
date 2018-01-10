@@ -101,6 +101,9 @@
 				return loadMailBody;
 
 				function loadMailBody(){
+					(this.parentNode).childNodes[1].style = "font-weight:normal;";
+					(this.parentNode).childNodes[2].style = "font-weight:normal;";
+					(this.parentNode).childNodes[3].style = "font-weight:normal;";
 					//var tableHeader1 = document.createElement("th");
 					var tableCell = document.createElement("td");
 					//var tableHead = document.createElement("thead");
@@ -294,15 +297,20 @@
 	
 	</head>
 
-	<body>
-
+	<body id="gmail_BG">
 		<h1>Get Sum Mail</h1>
+
+
 
 		<div class="g_search_div"> 
 		  <div class="g_spacer"><label class="google_label">Google Search?</label></div>
 		  <div class="g_spacer"><input id="googlText" type="text" /></div>
 		  <div class="g_spacer"><input type="button" id="googl" value="Search!" /></div>
 		</div>
+
+		<div class="bg_icon"></div>
+
+		<br />
 		<br />
 
 		<hr class="mail_body_hr" />
@@ -366,7 +374,7 @@
   	  	</tr>
   	  	</tbody>
   	  	</table>
-  	<hr class="mail_body_hr" />
+  		<hr class="mail_body_hr" />
 
 	</body>
 </html>

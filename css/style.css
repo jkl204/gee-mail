@@ -1,5 +1,23 @@
+#gmail_BG {
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(to bottom right, blue, black);
+}
+
+.bg_icon {
+	display: inline-block;
+	background-image: url("../bg_mat/mobile-smartphone-mail-600x400.jpg");
+	width:300px;
+	height:200px;
+}
+
+h1 {
+	color: white;
+}
+
 .g_search_div {
-	width: 25%;
+	display: inline-block;
+	width: 500px;
 }
 
 .g_spacer {
@@ -10,6 +28,7 @@
 
 .google_label {
 	text: "Google Search?";
+	color: white;
 }
 
 #googlText {
@@ -22,7 +41,7 @@
 .mail_body_hr {
 	height: 10px;
 	color: green;
-	background-color: green;
+	background-color: orange;
 	margin: 0;
 }
 
@@ -33,7 +52,7 @@
 } 
 
 .mail_col1 {
-	background-color: orange;
+	background-color: white;
 	width: 15%;
 }
 
@@ -71,14 +90,17 @@
 
 .send_class {
 	width: 15%;
+	font-weight: bold;
 }
 
 .subj_class {
-	width: 15%;
+	width: 30%;
+	font-weight: bold;
 }
 
 .date_class {
-	width: 65%;
+	width: 50%;
+	font-weight: bold;
 }
 
 #mailBodyTableHeader {
