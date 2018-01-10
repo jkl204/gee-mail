@@ -57,7 +57,7 @@ h1 {
 }
 
 .mail_col2 {
-	background-color:blue;
+	background: linear-gradient(left to right, blue, black);
 	width: 85%;
 }
 
