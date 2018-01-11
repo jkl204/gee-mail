@@ -30,6 +30,12 @@
 	        var composeMail = document.getElementById("new_mail");
 	        composeMail.onclick = loadComposeBody;
 	        inboxLink.onclick = inbox_show;
+
+	    	var c_img = document.getElementById("compose_img");
+	        var r_img = document.getElementById("read_img");
+	        var m_img = document.getElementById("menu_img");
+	        var img_div = document.getElementById("bg_icon");
+	        img_div.onclick = hide_show_img;
 	        
 			loadMailTable();
 
@@ -150,6 +156,8 @@
 					mailHiddenBody.appendChild(tableRow);
 					//tableHead.addEventListener("click", addHideBodyClickListener());
 					tableRow.addEventListener("click", addHideBodyClickListener());
+
+					img_read_trans();
 				}
 			}
 
@@ -181,12 +189,15 @@
 					tableRow.appendChild(tableCell);
 					mailHiddenBody.appendChild(tableRow);
 					tableRow.addEventListener("click", addHideBodyClickListener());
+
+					img_compose_trans();
 			}
 
 			function addHideBodyClickListener(){
 				
-				return hideMailBody;
+				return inbox_show;
 
+				/*
 				function hideMailBody(){
 					mailHiddenBody.style.display = "none";
 					mailTable.style = "width:100%;color:white;";
@@ -196,7 +207,7 @@
 					while(mailHiddenBodyHeader.firstChild) {
 						mailHiddenBodyHeader.removeChild(mailHiddenBodyHeader.firstChild);
 					}
-				}
+				} */
 			}
 
 			function inbox_show() {
@@ -208,6 +219,7 @@
 				while(mailHiddenBodyHeader.firstChild) {
 					mailHiddenBodyHeader.removeChild(mailHiddenBodyHeader.firstChild);
 				}
+				img_menu_trans();
 			}
 
 			function updateInboxCt(){
@@ -292,23 +304,153 @@
 	        	return false;
 	        }
 
+	        function img_compose_trans() {
+
+	        	var classes;
+	        	var i;
+
+	        	//compose img - show
+	        	classes = c_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) { c_img.classList.toggle("img_transparent"); }
+
+	        	//read img - hide
+	        	classes = r_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { r_img.classList.toggle("img_transparent"); }
+
+	        	//menu img - hide
+	        	classes = m_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { m_img.classList.toggle("img_transparent"); }
+
+	        }
+
+	        function img_read_trans() {
+
+	        	var classes;
+	        	var i;
+
+	        	//read img - show
+	        	classes = r_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) { r_img.classList.toggle("img_transparent"); }
+
+	        	//compose img - hide
+	        	classes = c_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { c_img.classList.toggle("img_transparent"); }
+
+	        	//menu img - hide
+	        	classes = m_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { m_img.classList.toggle("img_transparent"); }
+
+	        }
+
+	        function img_menu_trans() {
+
+	        	var classes;
+	        	var i;
+
+	        	//menu img - show
+	        	classes = m_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) { m_img.classList.toggle("img_transparent"); }
+
+	        	//read img - hide
+	        	classes = r_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { r_img.classList.toggle("img_transparent"); }
+
+	        	//compose img - hide
+	        	classes = c_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { c_img.classList.toggle("img_transparent"); }
+
+	        }
+
+	        function img_all_hide() {
+
+	        	var classes;
+	        	var i;
+
+	        	//menu img - hide
+	        	classes = m_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { m_img.classList.toggle("img_transparent"); }
+
+	        	//read img - hide
+	        	classes = r_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { r_img.classList.toggle("img_transparent"); }
+
+	        	//compose img - hide
+	        	classes = c_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) {} else { c_img.classList.toggle("img_transparent"); }
+
+	        }
+
+	        function img_all_show() {
+
+	        	var classes;
+	        	var i;
+
+	        	//menu img - show
+	        	classes = m_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) { m_img.classList.toggle("img_transparent"); }
+
+	        	//read img - show
+	        	classes = r_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) { r_img.classList.toggle("img_transparent"); }
+
+	        	//compose img - show
+	        	classes = c_img.className.split(" ");
+	        	i = classes.indexOf("img_transparent");
+	        	if (i >= 0) { c_img.classList.toggle("img_transparent"); }
+
+	        }
+
+	        function hide_show_img() {
+	        	
+	        	var classes_m = m_img.className.split(" ");
+	        	var classes_r = r_img.className.split(" ");
+	        	var classes_c = c_img.className.split(" ");
+	        	var i = classes_m.indexOf("img_transparent");
+	        	var j = classes_r.indexOf("img_transparent");
+	        	var k = classes_c.indexOf("img_transparent");
+
+	        	if (i >=0 && j >=0 && k >=0) {
+	        		img_all_show();
+	        	} else {
+	        		img_all_hide();
+	        	}
+	        }
+
 	      };
 	    </script>
 	
 	</head>
 
 	<body id="gmail_BG">
+
+
+		<div id="bg_icon">
+			<img id="compose_img" src="./bg_mat/MG_6647-Edit-min.jpg" />
+			<img id="read_img" src="./bg_mat/luk_muz_yf0_611243.jpg" />
+			<img id="menu_img" src="./bg_mat/mobile-smartphone-mail-600x400.jpg" />
+		</div>
+
 		<h1>Get Sum Mail</h1>
-
-
 
 		<div class="g_search_div"> 
 		  <div class="g_spacer"><label class="google_label">Google Search?</label></div>
 		  <div class="g_spacer"><input id="googlText" type="text" /></div>
 		  <div class="g_spacer"><input type="button" id="googl" value="Search!" /></div>
 		</div>
-
-		<div class="bg_icon"></div>
 
 		<br />
 		<br />

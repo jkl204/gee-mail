@@ -4,26 +4,58 @@
 	background: linear-gradient(to bottom right, blue, black);
 }
 
-.bg_icon {
-	display: inline-block;
-	background-image: url("../bg_mat/mobile-smartphone-mail-600x400.jpg");
-	width:300px;
-	height:200px;
-}
-
 h1 {
 	color: white;
 }
 
 .g_search_div {
 	display: inline-block;
-	width: 500px;
+	width: 100%;
+}
+
+#bg_icon {
+	position: absolute;
+	right:10px;
+	bottom:10px;
+	width:300px;
+	height:200px;
 }
 
 .g_spacer {
 	display: inline-block;
 	width: 150px;
 	margin: auto;
+}
+
+#menu_img {
+	border-radius: 8px;
+	position: absolute;
+	-webkit-transition: opacity 0.75s ease-in-out;
+	-moz-transition: opacity 0.75s ease-in-out;
+	-o-transition: opacity 0.75s ease-in-out;
+	transition: opacity 0.75s ease-in-out;
+}
+
+#read_img {
+	border-radius: 8px;
+	position: absolute;
+	-webkit-transition: opacity 0.75s ease-in-out;
+	-moz-transition: opacity 0.75s ease-in-out;
+	-o-transition: opacity 0.75s ease-in-out;
+	transition: opacity 0.75s ease-in-out;
+}
+
+#compose_img {
+	border-radius: 8px;
+	position: absolute;
+	-webkit-transition: opacity 0.75s ease-in-out;
+	-moz-transition: opacity 0.75s ease-in-out;
+	-o-transition: opacity 0.75s ease-in-out;
+	transition: opacity 0.75s ease-in-out;
+}
+
+.img_transparent {
+	opacity: 0;
 }
 
 .google_label {
@@ -52,8 +84,8 @@ h1 {
 } 
 
 .mail_col1 {
-	background-color: white;
-	background-color: #ADD8E6;
+	background: white;
+	background: #ADD8E6;
 	width: 15%;
 }
 
